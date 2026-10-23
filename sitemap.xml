@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://areyos.in/</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://areyos.in/</loc></url>
+  <url><loc>https://areyos.in/blog</loc></url>
+  <url><loc>https://areyos.in/blog/how-hospitals-reduce-directions-questions</loc></url>
+  <url><loc>https://areyos.in/blog/qr-code-vs-app-indoor-navigation</loc></url>
+</urlset>
