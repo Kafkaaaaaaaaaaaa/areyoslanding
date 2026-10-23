@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>QR indoor navigation without an app | Areyos</title>
+<meta name="description" content="How QR-based indoor navigation gives turn-by-turn directions in a phone browser, with no app, no beacons and no sensors to install.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="https://areyos.in/blog/qr-code-indoor-navigation-without-app/">
+<link rel="alternate" type="application/rss+xml" title="Areyos Blog" href="https://areyos.in/blog/feed.xml">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Areyos">
+<meta property="og:title" content="QR indoor navigation without an app | Areyos">
+<meta property="og:description" content="How QR-based indoor navigation gives turn-by-turn directions in a phone browser, with no app, no beacons and no sensors to install.">
+<meta property="og:url" content="https://areyos.in/blog/qr-code-indoor-navigation-without-app/">
+<meta property="og:image" content="https://areyos.in/blog/img/qr-code-indoor-navigation-without-app.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QR indoor navigation without an app | Areyos">
+<meta name="twitter:description" content="How QR-based indoor navigation gives turn-by-turn directions in a phone browser, with no app, no beacons and no sensors to install.">
+<meta name="twitter:image" content="https://areyos.in/blog/img/qr-code-indoor-navigation-without-app.png">
+<meta property="article:published_time" content="2026-10-23">
+<meta property="article:section" content="Guides">
+<link rel="preload" href="../../assets/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../../blog/blog.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "QR code indoor navigation without an app: how it works", "description": "How QR-based indoor navigation gives turn-by-turn directions in a phone browser, with no app, no beacons and no sensors to install.", "datePublished": "2026-10-23", "dateModified": "2026-10-23", "author": {"@type": "Person", "name": "Anas Khan"}, "publisher": {"@type": "Organization", "name": "Areyos", "logo": {"@type": "ImageObject", "url": "https://areyos.in/assets/areyos-lockup.svg"}}, "mainEntityOfPage": "https://areyos.in/blog/qr-code-indoor-navigation-without-app/", "image": "https://areyos.in/blog/img/qr-code-indoor-navigation-without-app.png", "articleSection": "Guides"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://areyos.in/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://areyos.in/blog/"}, {"@type": "ListItem", "position": 3, "name": "QR code indoor navigation without an app: how it works", "item": "https://areyos.in/blog/qr-code-indoor-navigation-without-app/"}]}]</script>
+</head>
+<body class="b-body">
+<a class="skip" href="#main">Skip to content</a>
+<div class="b-prog" aria-hidden="true"><i id="prog"></i></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="../../" aria-label="Areyos home"><img src="../../assets/areyos-lockup.svg" alt="Areyos" width="100" height="30"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#cost">The cost</a>
+      <a href="../../blog/" aria-current="page">Blog</a>
+      <a href="https://areyosdemo.vercel.app" target="_blank" rel="noopener">See live demo</a>
+      <a class="btn btn--sm" href="mailto:anas@areyos.in?subject=Areyos%20demo">Book a demo</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="b-art">
+<header class="b-art-head"><div class="wrap b-narrow">
+<nav class="b-crumb" aria-label="Breadcrumb"><a href="../../">Home</a><span>/</span><a href="../../blog/">Blog</a><span>/</span><span>Guides</span></nav>
+<h1 class="b-h1 b-h1--art">QR code indoor navigation without an app: how it works</h1>
+<p class="lede">How QR-based indoor navigation gives turn-by-turn directions in a phone browser, with no app, no beacons and no sensors to install.</p>
+<div class="b-by"><span class="b-ava" aria-hidden="true">AK</span><div><b>Anas Khan</b><span>Founder, Areyos</span></div>
+<div class="b-meta"><time datetime="2026-10-23">23 Oct 2026</time><span>6 min read</span><span class="b-tag">Guides</span></div></div>
+</div></header>
+<div class="wrap"><figure class="b-hero-img"><img src="../img/qr-code-indoor-navigation-without-app.svg" alt="Illustrated floor plan with a dotted route to a destination, for the article: QR code indoor navigation without an app: how it works" width="1200" height="630"></figure></div>
+<div class="wrap b-cols">
+<aside class="b-toc" aria-label="On this page"><p>On this page</p><ol id="toc"></ol>
+<div class="b-share"><button type="button" id="copy" class="b-chip">Copy link</button></div></aside>
+<div class="b-prose" id="prose">
+<aside class="b-key"><h2>Key takeaways</h2><ul><li>A scan opens a web page, not an app, so any phone with a camera works.</li><li>The QR code tells the system where the visitor is standing; the map does the rest.</li><li>No beacons or sensors are needed, so there is no hardware to power or replace.</li><li>The trade-off: it shows the route to follow, not a live moving dot.</li></ul></aside>
+
+<p>“Indoor navigation” usually brings to mind apps, beacons and blue dots. There is a simpler version that works for most visitors: scan a QR code, choose where you are going, and follow the route on a web page.</p>
+<h2>How it works, step by step</h2>
+<ol>
+<li><strong>The venue is mapped.</strong> Floor plans become a connected map of corridors, doors, lifts and stairs.</li>
+<li><strong>QR codes mark known spots.</strong> Each code is printed for one location, such as “Main entrance” or “2nd floor lift lobby”.</li>
+<li><strong>The visitor scans.</strong> The code opens a web page that already knows where the visitor is standing.</li>
+<li><strong>They pick a destination.</strong> The system calculates the route from that spot.</li>
+<li><strong>They follow the steps.</strong> Directions are shown turn by turn. Another code further along can confirm progress or correct a wrong turn.</li>
+</ol>
+<h2>Why no app, beacons or sensors?</h2>
+<p>Because the code itself provides the starting position. Systems that track a moving dot need sensors, radio signals or a map-matching app running continuously. Starting from a known point removes that need.</p>
+<h2>What it needs from the venue</h2>
+<ul>
+<li>A reasonably accurate floor plan for each floor.</li>
+<li>A list of destinations in the words visitors use.</li>
+<li>A few dozen printed codes at entrances, lifts and junctions.</li>
+</ul>
+<h2>Where it works best, and where it does not</h2>
+<p>It suits one-time visitors: patients, shoppers, guests, delegates. It is less suited to staff who need live tracking, or to venues that want augmented-reality overlays. Many venues start with QR and add more later using the same map. We compare the two approaches in <a href="../qr-code-vs-app-indoor-navigation/">QR code or app?</a>.</p>
+<h2>Is it accessible?</h2>
+<p>Step-by-step text directions, clear contrast and step-free route options matter more than the technology. Check with real users, including people with mobility needs, before you launch.</p>
+<div class="b-note"><strong>Next step.</strong> Planning a rollout? See <a href="../launch-qr-wayfinding-in-a-week/">how to launch in a week</a> and <a href="../where-to-place-wayfinding-qr-codes/">where to place the codes</a>.</div>
+
+<div class="b-author"><span class="b-ava b-ava--lg" aria-hidden="true">AK</span><div><b>Written by Anas Khan</b><p>Founder of Areyos, building QR indoor navigation for Indian venues. Questions or corrections: <a href="mailto:anas@areyos.in">anas@areyos.in</a>.</p></div></div>
+</div></div>
+</article>
+<section class="b-more-posts"><div class="wrap"><h2 class="h3">Keep reading</h2><div class="b-grid b-grid--3">
+<article class="b-card" data-cat="Guides" data-text="qr code or app? why most venues should start with a scan indoor navigation apps sound impressive, but visitors rarely install them. a look at when a qr code is the better answer, and when it is not. guides">
+<a class="b-card-img" href="../../blog/qr-code-vs-app-indoor-navigation/" tabindex="-1" aria-hidden="true"><img src="../../blog/img/qr-code-vs-app-indoor-navigation.svg" alt="Illustrated floor plan with a dotted route to a destination, for the article: QR code or app? Why most venues should start with a scan" width="1200" height="630" loading="lazy"></a>
+<div class="b-card-body"><div class="b-meta"><span class="b-tag">Guides</span><time datetime="2026-10-14">14 Oct 2026</time><span>5 min read</span></div>
+<h3 class="b-card-title"><a href="../../blog/qr-code-vs-app-indoor-navigation/">QR code or app? Why most venues should start with a scan</a></h3>
+<p class="b-card-desc">Indoor navigation apps sound impressive, but visitors rarely install them. A look at when a QR code is the better answer, and when it is not.</p>
+<a class="b-more" href="../../blog/qr-code-vs-app-indoor-navigation/">Read article <svg viewBox="0 0 16 15" aria-hidden="true"><path d="M1 7.5h13M9 2l5.5 5.5L9 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article><article class="b-card" data-cat="Guides" data-text="where to place wayfinding qr codes (and how big to make them) placement decides whether qr navigation gets used. practical rules for location, height, size, contrast and the words printed beside the code. guides">
+<a class="b-card-img" href="../../blog/where-to-place-wayfinding-qr-codes/" tabindex="-1" aria-hidden="true"><img src="../../blog/img/where-to-place-wayfinding-qr-codes.svg" alt="Illustrated floor plan with a dotted route to a destination, for the article: Where to place wayfinding QR codes (and how big to make them)" width="1200" height="630" loading="lazy"></a>
+<div class="b-card-body"><div class="b-meta"><span class="b-tag">Guides</span><time datetime="2026-09-29">29 Sep 2026</time><span>4 min read</span></div>
+<h3 class="b-card-title"><a href="../../blog/where-to-place-wayfinding-qr-codes/">Where to place wayfinding QR codes (and how big to make them)</a></h3>
+<p class="b-card-desc">Placement decides whether QR navigation gets used. Practical rules for location, height, size, contrast and the words printed beside the code.</p>
+<a class="b-more" href="../../blog/where-to-place-wayfinding-qr-codes/">Read article <svg viewBox="0 0 16 15" aria-hidden="true"><path d="M1 7.5h13M9 2l5.5 5.5L9 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article><article class="b-card" data-cat="Hospitals" data-text="hospital wayfinding in india: a practical guide a practical guide to hospital wayfinding in india: why patients get lost, what good wayfinding includes, and how to improve it step by step. hospitals">
+<a class="b-card-img" href="../../blog/hospital-wayfinding-guide-india/" tabindex="-1" aria-hidden="true"><img src="../../blog/img/hospital-wayfinding-guide-india.svg" alt="Illustrated floor plan with a dotted route to a destination, for the article: Hospital wayfinding in India: a practical guide" width="1200" height="630" loading="lazy"></a>
+<div class="b-card-body"><div class="b-meta"><span class="b-tag">Hospitals</span><time datetime="2026-10-22">22 Oct 2026</time><span>8 min read</span></div>
+<h3 class="b-card-title"><a href="../../blog/hospital-wayfinding-guide-india/">Hospital wayfinding in India: a practical guide</a></h3>
+<p class="b-card-desc">A practical guide to hospital wayfinding in India: why patients get lost, what good wayfinding includes, and how to improve it step by step.</p>
+<a class="b-more" href="../../blog/hospital-wayfinding-guide-india/">Read article <svg viewBox="0 0 16 15" aria-hidden="true"><path d="M1 7.5h13M9 2l5.5 5.5L9 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></article>
+</div></div></section>
+</main>
+<section class="sec cta b-cta"><div class="wrap">
+<h2 class="h2">Stop answering “where is it?”</h2>
+<p class="lede">Send us a floor plan. We will show you a working QR route for your venue, free, before you decide anything.</p>
+<div class="cta-links">
+<a class="btn btn--white" href="mailto:anas@areyos.in?subject=Free%20pilot">Get a free pilot <svg viewBox="0 0 16 15" aria-hidden="true"><path d="M1 7.5h13M9 2l5.5 5.5L9 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<a class="cta-item" href="mailto:anas@areyos.in"><small>Email</small><b>anas@areyos.in</b></a>
+<a class="cta-item" href="tel:+918591436477"><small>Call</small><b>+91 85914 36477</b></a>
+</div></div></section>
+<footer class="foot"><div class="wrap">
+<img src="../../assets/areyos-lockup-white.svg" alt="Areyos" width="87" height="26">
+<div class="foot-meta"><a href="../../">Home</a><a href="../../blog/">Blog</a><a href="../../blog/feed.xml">RSS</a><span>&copy; 2026 Areyos</span></div>
+</div></footer>
+<script src="../../blog/blog.js" defer></script>
+</body></html>

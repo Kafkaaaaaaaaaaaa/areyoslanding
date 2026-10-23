@@ -389,3 +389,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .pulse::after,.route .ring,.you-halo,.viewfinder s{animation:none!important}
 }
+
+/* ---------- cost video ---------- */
+.watch{display:grid;gap:clamp(32px,5vw,72px);align-items:center;grid-template-columns:1fr}
+.watch-copy .lede{margin-top:clamp(18px,2vw,26px)}
+.watch-note{margin:18px 0 0;font-size:.9375rem;color:var(--slate)}
+.watch-frame{margin:0;justify-self:center;width:min(100%,340px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:var(--ink);border:1px solid var(--line);box-shadow:0 30px 70px rgba(10,10,10,.18)}
+.watch-frame video{display:block;width:100%;height:100%;object-fit:cover}
+@media (min-width:880px){.watch{grid-template-columns:1.1fr .9fr}.watch-frame{justify-self:end;width:min(100%,360px)}}
