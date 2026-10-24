@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Areyos Demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="preload" href="inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Inter Variable';font-style:normal;font-display:swap;font-weight:100 900;src:url(inter-latin-wght-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+:root{--blue:#1854C8;--blue-deep:#123F99;--sky:#80AAFF;--ink:#0A0A0A;--paper:#fff;--tint:#F4F7FD;--body:#4A4A4A;--slate:#6B7280;--line:rgba(10,10,10,.12);--font:'Inter Variable','Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--tint);color:var(--ink);font:400 15px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.stage{min-height:100%;display:grid;place-items:center;padding:24px 16px}
+.note{position:fixed;left:24px;bottom:20px;max-width:240px;font-size:.8125rem;color:var(--slate);display:none}
+@media(min-width:900px){.note{display:block}}
+.app{position:relative;width:100%;max-width:400px;height:min(820px,calc(100dvh - 48px));min-height:600px;background:var(--paper);border:2px solid var(--ink);border-radius:36px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(10,10,10,.45);display:flex;flex-direction:column}
+@media(max-width:520px){.stage{padding:0}.app{max-width:none;height:100dvh;min-height:0;border:0;border-radius:0;box-shadow:none}}
+.top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 10px;padding-top:max(14px,env(safe-area-inset-top,0px))}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:-.03em;font-size:1.0625rem}
+.brand svg{width:22px;height:21px;color:var(--blue)}
+.venue{font-size:.8125rem;color:var(--slate)}
+.screen{position:absolute;left:0;right:0;top:50px;bottom:0;display:none;flex-direction:column}
+.screen.on{display:flex;animation:in .35s cubic-bezier(.22,1,.36,1)}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.screen.on{animation:none}}
+h1,h2,h3,p{margin:0}
+.pad{padding:0 18px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:.9375rem;width:100%}
+.btn.p{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.p:hover{background:var(--blue-deep)}
+.btn.g{border-color:transparent;color:var(--blue);background:none}
+.btn svg{width:13px;height:12px}
+.row{display:flex;gap:10px}
+.row .btn{flex:1;white-space:nowrap}.row .btn:first-child{flex:.55}
+/* scan */
+.cam{position:relative;flex:1;margin:0 18px;border-radius:22px;background:#14171d;overflow:hidden;min-height:260px}
+.cam .vf{position:absolute;inset:18%;border:0}
+.cam .vf i{position:absolute;width:26px;height:26px;border:3px solid var(--sky)}
+.vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-top-left-radius:10px}.vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:10px}.vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-bottom-left-radius:10px}.vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:10px}
+.cam .ln{position:absolute;left:19%;right:19%;top:18%;height:2px;background:var(--sky);box-shadow:0 0 14px 2px rgba(128,170,255,.7);animation:sc 2.2s ease-in-out infinite}
+@keyframes sc{0%{transform:translateY(0);opacity:0}15%,85%{opacity:1}100%{transform:translateY(190px);opacity:0}}
+.cam p{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#fff;font-size:.8125rem;opacity:.85}
+.cam .qrbox{position:absolute;left:50%;top:48%;width:34%;aspect-ratio:1;transform:translate(-50%,-50%);background:#fff;border-radius:8px;padding:6px;transition:opacity .3s}
+.cam .qrbox svg{width:100%;height:100%}
+.codes{display:grid;gap:8px;margin:14px 18px 0}
+.code{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left}
+.code:hover{border-color:var(--blue)}
+.code.hint{border-color:var(--blue);background:#EEF3FF}
+.code svg{width:34px;height:34px;flex:none;border:1px solid var(--line);border-radius:6px;padding:3px}
+.code b{display:block;font-size:.875rem}.code span{font-size:.75rem;color:var(--slate)}
+.typed{display:flex;gap:8px;margin:12px 18px 18px}
+.typed input::placeholder{text-transform:none}.typed input{flex:1;min-width:0;height:44px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font:inherit;text-transform:uppercase;background:#fff}
+.typed .btn{width:auto}
+.err{margin:8px 18px 0;color:#B42318;font-size:.8125rem;min-height:1.2em}
+/* map */
+.mapwrap{position:relative;flex:1;min-height:0;background:var(--tint)}
+.map{width:100%;height:100%;display:block}
+.room{fill:#fff;stroke:rgba(10,10,10,.16);stroke-width:1.5}.room.dest{fill:#E4EDFF;stroke:var(--blue)}
+.rl{font:500 7.5px var(--font);fill:rgba(10,10,10,.5);text-anchor:middle}.rl.dest{fill:var(--blue);font-weight:700}
+.cor{fill:none;stroke:#E6ECF8;stroke-width:22;stroke-linejoin:round}
+.rt{fill:none;stroke:var(--blue);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.rt.faint{opacity:.28}
+.you{fill:var(--blue);stroke:#fff;stroke-width:3}.halo{fill:var(--blue);opacity:.2;transform-box:fill-box;transform-origin:center;animation:h 2.4s ease-out infinite}
+@keyframes h{0%{transform:scale(.6);opacity:.35}100%{transform:scale(1.9);opacity:0}}
+.pin{fill:var(--sky);stroke:var(--blue);stroke-width:3}
+.lift{fill:#fff;stroke:var(--slate);stroke-width:1.2}.lt{font:600 6px var(--font);fill:var(--slate);text-anchor:middle}
+.floors{position:absolute;right:12px;top:12px;display:grid;gap:4px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px}
+.floors button{border:0;background:none;border-radius:8px;padding:6px 10px;font-size:.75rem;font-weight:600;color:var(--body)}
+.floors button[aria-pressed=true]{background:var(--blue);color:#fff}
+.here{position:absolute;left:12px;top:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.75rem;font-weight:600;display:flex;gap:6px;align-items:center}
+.here i{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+/* sheet */
+.sheet{flex:none;background:#fff;border-top:1px solid var(--line);border-radius:22px 22px 0 0;margin-top:-18px;position:relative;padding:14px 18px;padding-bottom:max(16px,env(safe-area-inset-bottom,0px));box-shadow:0 -10px 30px -14px rgba(10,10,10,.2)}
+.search{width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--tint);padding:0 14px;font:inherit}
+.list{max-height:170px;overflow:auto;margin-top:6px}
+.list button{display:flex;width:100%;align-items:center;gap:12px;border:0;background:none;text-align:left;padding:10px 4px;border-radius:10px;font-weight:600;font-size:.9375rem}
+.list button+button{border-top:1px solid var(--line)}
+.list button:hover{background:var(--tint)}
+.list small{display:block;font-weight:400;color:var(--slate);font-size:.75rem}
+.dot{flex:none;width:30px;height:30px;border-radius:50%;background:var(--tint);display:grid;place-items:center;color:var(--blue)}.dot svg{width:14px;height:14px}
+.empty{padding:14px 4px;color:var(--slate);font-size:.875rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 14px}
+.stats b{display:block;font-size:1.375rem;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}.stats span{font-size:.75rem;color:var(--slate)}
+.sheet h2{font-size:1.125rem;letter-spacing:-.02em}.sheet .sub{font-size:.8125rem;color:var(--slate)}
+/* nav */
+.turn{position:relative;z-index:2;flex:none;margin:0 12px;padding:14px 16px;border-radius:18px;background:var(--blue);color:#fff;display:flex;gap:14px;align-items:center;box-shadow:0 14px 30px -14px rgba(24,84,200,.7)}
+.turn .ic{flex:none;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}.turn .ic svg{width:22px;height:22px}
+.turn strong{display:block;font-size:1.0625rem;line-height:1.25;letter-spacing:-.015em}.turn span{font-size:.75rem;opacity:.85}
+.nav .mapwrap{margin-top:-20px}.nav .floors{top:34px}
+/* arrive */
+.arr{align-items:center;justify-content:center;text-align:center;padding:24px 22px}
+.badge{position:relative;width:104px;height:104px;border-radius:50%;background:var(--blue);display:grid;place-items:center;margin-bottom:26px}.badge svg{width:48px;height:46px;color:#fff}.badge::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid var(--sky);opacity:.55}
+.arr h2{font-size:1.75rem;letter-spacing:-.03em}.arr p{color:var(--slate);margin-top:4px}
+.arr .btns{width:100%;display:grid;gap:8px;margin-top:30px}
+.toast{position:absolute;left:18px;right:18px;bottom:96px;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;font-size:.8125rem;z-index:5;opacity:0;pointer-events:none;transition:opacity .25s}.toast.on{opacity:1}
+.rough{margin:auto 18px 14px;font-size:.75rem;color:var(--slate);text-align:center}.rough a,.note a{color:var(--blue);font-weight:600}.arr .rough{margin:22px 0 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ch" viewBox="11 22 52 50"><path fill="currentColor" d="M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z"/></symbol></svg>
+<div class="stage"><div class="app" id="app">
+  <div class="top"><div class="brand"><svg><use href="#ch"/></svg>areyos</div><div class="venue">City Hospital, demo</div></div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <section class="screen on" id="s-scan" aria-label="Scan a code">
+    <div class="pad"><h1 style="font-size:1.5rem;letter-spacing:-.03em">Scan a code</h1><p style="color:var(--slate);font-size:.875rem;margin-top:2px" id="scanHelp">Point your camera at an Areyos code. In this demo, tap a code below to scan it.</p></div>
+    <div class="cam" style="margin-top:14px" aria-hidden="true"><div class="vf"><i></i><i></i><i></i><i></i></div><div class="ln"></div><div class="qrbox" id="camQr"></div><p>Looking for a code</p></div>
+    <div class="codes" id="codes"></div>
+    <form class="typed" id="typed"><label class="sr" for="codeIn">Code</label><input id="codeIn" placeholder="Or type the code, e.g. AR-G-ENT" autocomplete="off"><button class="btn p" type="submit">Go</button></form>
+    <div class="err" id="err" role="alert"></div>
+    <p class="rough">This is a rough demo. For a detailed demo, reach out at <a href="mailto:anas@areyos.in">anas@areyos.in</a></p>
+  </section>
+
+  <section class="screen" id="s-map" aria-label="Choose a destination">
+    <div class="mapwrap"><svg class="map" id="map1" viewBox="0 0 240 300" preserveAspectRatio="xMidYMid meet"></svg><div class="here"><i></i><span id="here1"></span></div><div class="floors" id="fl1"></div></div>
+    <div class="sheet"><input class="search" id="q" placeholder="Where to?" autocomplete="off" aria-label="Search for a place"><div class="list" id="list"></div><button class="btn g" id="rescan" style="margin-top:4px;min-height:40px">Scan another code</button></div>
+  </section>
+
+  <section class="screen" id="s-sum" aria-label="Route summary">
+    <div class="mapwrap"><svg class="map" id="map2" viewBox="0 0 240 300" preserveAspectRatio="xMidYMid meet"></svg><div class="floors" id="fl2"></div></div>
+    <div class="sheet"><h2 id="sumT"></h2><p class="sub" id="sumS"></p><div class="stats" id="stats"></div><div class="row"><button class="btn" id="sumBack">Back</button><button class="btn p" id="go">Start navigation <svg><use href="#ch"/></svg></button></div></div>
+  </section>
+
+  <section class="screen nav" id="s-nav" aria-label="Directions">
+    <div class="turn" aria-live="polite"><div class="ic" id="tIc"></div><div><strong id="tTx"></strong><span id="tSub"></span></div></div>
+    <div class="mapwrap"><svg class="map" id="map3" viewBox="0 0 240 300" preserveAspectRatio="xMidYMid meet"></svg><div class="floors" id="fl3"></div></div>
+    <div class="sheet"><div class="row"><button class="btn" id="back">Back</button><button class="btn p" id="next">Next <svg><use href="#ch"/></svg></button></div><button class="btn g" id="end" style="margin-top:4px;min-height:40px">End navigation</button></div>
+  </section>
+
+  <section class="screen arr" id="s-arr" aria-label="Arrived">
+    <div class="badge"><svg><use href="#ch"/></svg></div><h2>You've arrived</h2><p id="arrP"></p>
+    <div class="btns"><button class="btn p" id="done">Done</button><button class="btn" id="find">Find a place</button><button class="btn" id="scanAgain">Scan code</button></div>
+    <p class="rough">This is a rough demo. For a detailed demo, reach out at <a href="mailto:anas@areyos.in">anas@areyos.in</a></p>
+  </section>
+</div></div>
+<p class="note">Demo with sample data. The blue dot marks where you last scanned. Scan another code to update your location.<br><br>This is a rough demo. For a detailed demo, reach out at <a href="mailto:anas@areyos.in" style="color:var(--blue)">anas@areyos.in</a></p>
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+var NS='http://www.w3.org/2000/svg';
+/* ---------- data: one hospital, two floors, same corridor shape ---------- */
+var FL={G:'Ground floor',F:'2nd floor'};
+var N={ /* nodes: floor, x, y */
+ GE:{f:'G',x:30,y:262},GA:{f:'G',x:30,y:161},GD1:{f:'G',x:94,y:161},GD2:{f:'G',x:165,y:161},GL:{f:'G',x:180,y:161},GC:{f:'G',x:180,y:121},
+ FL:{f:'F',x:180,y:161},FD2:{f:'F',x:165,y:161},FD1:{f:'F',x:94,y:161},FA:{f:'F',x:30,y:161},FR:{f:'F',x:180,y:90}};
+var E=[['GE','GA'],['GA','GD1'],['GD1','GD2'],['GD2','GL'],['GL','GC'],['FL','FD2'],['FD2','FD1'],['FD1','FA'],['FL','FR']];
+var LIFT=['GL','FL'];
+var R=[ /* rooms: id, name, floor, rect, door node */
+ {n:'Pharmacy',f:'G',r:[64,178,70,60],d:'GD1'},{n:'Lab',f:'G',r:[64,98,60,46],d:'GD1'},{n:'Wards',f:'G',r:[150,178,78,60],d:'GD2'},{n:'Cafe',f:'G',r:[196,98,32,46],d:'GC',l:'Cafe'},
+ {n:'Radiology',f:'F',r:[132,18,96,62],d:'FR'},{n:'Cardiology',f:'F',r:[64,98,60,46],d:'FD1'},{n:'Pathology',f:'F',r:[64,178,70,60],d:'FD1'},{n:'Neurology',f:'F',r:[150,178,78,60],d:'FD2'}];
+var CODES={ 'AR-G-ENT':{n:'GE',t:'Main entrance',s:'Ground floor'},'AR-G-LIFT':{n:'GL',t:'Lift',s:'Ground floor'},'AR-2-LIFT':{n:'FL',t:'Lift',s:'2nd floor'}};
+var S={loc:null,code:null,dest:null,route:null,i:0,view:'G',want:null};
+
+/* ---------- helpers ---------- */
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function dist(a,b){return Math.hypot(N[a].x-N[b].x,N[a].y-N[b].y)}
+function show(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',s.id===id)})}
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2600)}
+function qr(code,size){ /* decorative pseudo-QR, seeded by the code */
+ var h=0;for(var i=0;i<code.length;i++)h=(h*31+code.charCodeAt(i))|0;var n=21,d='',g=[];
+ function rnd(){h=(h+0x6D2B79F5)|0;var t=Math.imul(h^h>>>15,1|h);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+ for(var y=0;y<n;y++){g[y]=[];for(var x=0;x<n;x++)g[y][x]=rnd()>.5}
+ [[0,0],[n-7,0],[0,n-7]].forEach(function(o){for(var j=-1;j<=7;j++)for(var i=-1;i<=7;i++){var gx=o[0]+i,gy=o[1]+j;if(gx<0||gy<0||gx>=n||gy>=n)continue;var m=Math.max(Math.abs(i-3),Math.abs(j-3));g[gy][gx]=i>=0&&i<=6&&j>=0&&j<=6&&(m===3||m<=1)}});
+ for(y=0;y<n;y++)for(x=0;x<n;x++)if(g[y][x])d+='M'+x+' '+y+'h1v1h-1z';
+ return '<svg viewBox="0 0 '+n+' '+n+'" shape-rendering="crispEdges"><path d="'+d+'" fill="#0A0A0A"/></svg>'}
+
+/* ---------- routing ---------- */
+function route(from,to){
+ var D={},P={},Q=Object.keys(N);Q.forEach(function(k){D[k]=1e9});D[from]=0;
+ function nb(u){var r=[];E.forEach(function(e){if(e[0]===u)r.push([e[1],dist(e[0],e[1])]);if(e[1]===u)r.push([e[0],dist(e[0],e[1])])});if(u===LIFT[0])r.push([LIFT[1],60]);if(u===LIFT[1])r.push([LIFT[0],60]);return r}
+ while(Q.length){Q.sort(function(a,b){return D[a]-D[b]});var u=Q.shift();if(D[u]>=1e9||u===to)break;nb(u).forEach(function(v){if(Q.indexOf(v[0])>-1&&D[u]+v[1]<D[v[0]]){D[v[0]]=D[u]+v[1];P[v[0]]=u}})}
+ var path=[to];while(path[0]!==from){if(!P[path[0]])return null;path.unshift(P[path[0]])}
+ return path}
+function head(a,b){return Math.atan2(N[b].y-N[a].y,N[b].x-N[a].x)}
+function turnOf(h0,h1){var d=h1-h0;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return d>.6?'right':d<-.6?'left':'straight'}
+function meters(u){return Math.max(5,Math.round(u*.3/5)*5)}
+function steps(path,dest){
+ var out=[],i=0,prevH=null;
+ while(i<path.length-1){
+  var a=path[i],b=path[i+1];
+  if(N[a].f!==N[b].f){var to=FL[N[b].f];out.push({k:'lift',f:N[a].f,pts:[a],tx:'Take the lift to the '+to.toLowerCase(),sub:'Then scan the code beside the lift on the '+to.toLowerCase()+'.',to:N[b].f});i++;prevH=null;continue}
+  var h=head(a,b),j=i+1;
+  while(j<path.length-1&&N[path[j+1]].f===N[a].f&&Math.abs(head(path[j],path[j+1])-h)<.01)j++;
+  var pts=path.slice(i,j+1),len=0;for(var k=0;k<pts.length-1;k++)len+=dist(pts[k],pts[k+1]);
+  var t=prevH===null?'straight':turnOf(prevH,h),m=meters(len),tx;
+  if(prevH===null)tx='Walk straight for '+m+' m';else tx=(t==='straight'?'Keep straight for ':'Turn '+t+' and walk ')+m+' m';
+  var lm=null;R.forEach(function(r){if(r.d===a&&r.f===N[a].f&&r.n!==dest.n&&r.l!==undefined)lm=r.n});
+  out.push({k:t,f:N[a].f,pts:pts,tx:tx,sub:'',len:len});prevH=h;i=j}
+ /* arrival */
+ var last=out[out.length-1],ld=last&&last.pts.length>1?head(last.pts[last.pts.length-2],last.pts[last.pts.length-1]):-Math.PI/2;
+ var c=[dest.r[0]+dest.r[2]/2,dest.r[1]+dest.r[3]/2],dn=N[dest.d],vx=Math.cos(ld),vy=Math.sin(ld),wx=c[0]-dn.x,wy=c[1]-dn.y,cr=vx*wy-vy*wx,dt=vx*wx+vy*wy,side=Math.abs(cr)<Math.abs(dt)*.5&&dt>0?'straight ahead':(cr>0?'on your right':'on your left');
+ out.push({k:'arrive',f:dest.f,pts:[dest.d],tx:dest.n+' is '+side,sub:'You are at the door.'});
+ return out}
+function plan(from,dest){
+ var p=route(from,dest.d);if(!p)return null;var st=steps(p,dest),m=0;
+ for(var i=0;i<p.length-1;i++)if(N[p[i]].f===N[p[i+1]].f)m+=dist(p[i],p[i+1]);m=m*.3;
+ var lifts=p.some(function(n,i){return i&&N[n].f!==N[p[i-1]].f});
+ var min=Math.max(1,Math.round(m/72+(lifts?1:0)));
+ return {path:p,steps:st,min:min,floors:lifts}}
+
+/* ---------- map drawing ---------- */
+var ICON={left:'<path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',right:'<path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',straight:'<path d="M12 20V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',lift:'<rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m9 10 3-3 3 3m-6 4 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',arrive:'<path d="M12 21s7-6.500 7-12a7 7 0 1 0-14 0c0 5.500 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="9" r="2.4" fill="currentColor"/>'};
+function draw(svg,floor,o){
+ o=o||{};svg.innerHTML='';
+ var cor=floor==='G'?'M30 272V161H180V105':'M30 161H180V90';
+ if(floor==='F')cor='M30 161H180V70';
+ el('path',{d:cor,class:'cor'},svg);
+ R.filter(function(r){return r.f===floor}).forEach(function(r){var d=o.dest&&o.dest.n===r.n&&o.dest.f===floor;el('rect',{x:r.r[0],y:r.r[1],width:r.r[2],height:r.r[3],rx:6,class:'room'+(d?' dest':'')},svg);var t=el('text',{x:r.r[0]+r.r[2]/2,y:r.r[1]+r.r[3]/2+3,class:'rl'+(d?' dest':'')},svg);t.textContent=r.n});
+ var L=floor==='G'?'GL':'FL';el('rect',{x:N[L].x-9,y:N[L].y-9,width:18,height:18,rx:4,class:'lift'},svg);var lt=el('text',{x:N[L].x,y:N[L].y+3,class:'lt'},svg);lt.textContent='Lift';
+ if(o.route){var all=[],cur=null;o.route.steps.forEach(function(s,i){if(s.f===floor&&s.k!=='lift'&&s.k!=='arrive'){var d=s.pts.map(function(n,j){return(j?'L':'M')+N[n].x+' '+N[n].y}).join('');el('path',{d:d,class:'rt'+(o.step!==undefined&&o.step!==i&&o.step<o.route.steps.length-1?' faint':'')},svg)}})}
+ if(o.dest&&o.dest.f===floor){var dn=N[o.dest.d];el('circle',{cx:dn.x,cy:dn.y,r:7,class:'pin'},svg)}
+ if(o.you&&N[o.you].f===floor){var y=N[o.you];el('circle',{cx:y.x,cy:y.y,r:13,class:'halo'},svg);el('circle',{cx:y.x,cy:y.y,r:7,class:'you'},svg)}}
+function floors(id,cb){var b=$(id);b.innerHTML='';['F','G'].forEach(function(f){var x=document.createElement('button');x.type='button';x.textContent=f==='G'?'G':'2';x.setAttribute('aria-label',FL[f]);x.setAttribute('aria-pressed',String(S.view===f));x.onclick=function(){S.view=f;cb()};b.appendChild(x)})}
+
+/* ---------- screens ---------- */
+function scanScreen(msg,hint){
+ $('#scanHelp').textContent=msg||'Point your camera at an Areyos code. In this demo, tap a code below to scan it.';
+ var c=$('#codes');c.innerHTML='';
+ Object.keys(CODES).forEach(function(k){var v=CODES[k],b=document.createElement('button');b.type='button';b.className='code'+(hint===k?' hint':'');b.innerHTML=qr(k)+'<div><b>'+v.t+'</b><span>'+v.s+' · '+k+'</span></div>';b.onclick=function(){doScan(k)};c.appendChild(b)});
+ $('#camQr').innerHTML=qr('AR-G-ENT');$('#err').textContent='';show('s-scan')}
+function doScan(code){
+ var v=CODES[code];if(!v){$('#err').textContent='That code is not recognised. Check it and try again.';return}
+ var q=$('#camQr');q.innerHTML=qr(code);q.style.opacity=.4;
+ setTimeout(function(){q.style.opacity=1;S.loc=v.n;S.code=code;S.view=N[v.n].f;
+  if(S.dest){S.route=plan(S.loc,S.dest);if(S.route){S.i=0;toast('Location updated: '+v.t+', '+v.s.toLowerCase());return startNav(true)}}
+  mapScreen();toast('You are here: '+v.t+', '+v.s.toLowerCase())},350)}
+function mapScreen(){
+ S.dest=null;S.route=null;S.view=N[S.loc].f;var v=CODES[S.code];$('#here1').textContent=v.t+', '+v.s;
+ function r(){draw($('#map1'),S.view,{you:S.loc});floors('#fl1',r)}r();
+ $('#q').value='';list('');show('s-map')}
+function list(q){
+ var L=$('#list');L.innerHTML='';q=q.toLowerCase();var m=R.filter(function(r){return r.n.toLowerCase().indexOf(q)>-1||FL[r.f].toLowerCase().indexOf(q)>-1});
+ if(!m.length){L.innerHTML='<div class="empty">No place called "'+q.replace(/[<&]/g,'')+'". Try Radiology, Pharmacy or Cafe.</div>';return}
+ m.sort(function(a,b){return(b.f===N[S.loc].f)-(a.f===N[S.loc].f)||a.n.localeCompare(b.n)}).forEach(function(r){var b=document.createElement('button');b.type='button';b.innerHTML='<span class="dot"><svg viewBox="0 0 24 24">'+ICON.arrive+'</svg></span><span>'+r.n+'<small>'+FL[r.f]+'</small></span>';b.onclick=function(){pick(r)};L.appendChild(b)})}
+function pick(r){
+ S.dest=r;S.route=plan(S.loc,r);if(!S.route){toast('No route found');return}
+ var p=S.route,arr=new Date(Date.now()+p.min*60000),hh=('0'+arr.getHours()).slice(-2)+':'+('0'+arr.getMinutes()).slice(-2);
+ $('#sumT').textContent=r.n+', '+FL[r.f].toLowerCase();$('#sumS').textContent='From '+CODES[S.code].t+', '+CODES[S.code].s.toLowerCase();
+ $('#stats').innerHTML='<div><b>'+p.min+' min</b><span>walk</span></div><div><b>'+(p.floors?'2 floors':'1 floor')+'</b><span>'+(p.floors?'lift between':'same floor')+'</span></div><div><b>'+hh+'</b><span>arrive</span></div>';
+ S.view=N[S.loc].f;function d(){draw($('#map2'),S.view,{you:S.loc,dest:r,route:p});floors('#fl2',d)}d();show('s-sum')}
+function startNav(keep){
+ if(!keep)S.i=0;S.view=S.route.steps[S.i].f;show('s-nav');renderNav()}
+function renderNav(){
+ var st=S.route.steps,s=st[S.i],last=S.i===st.length-1;
+ $('#tTx').textContent=s.tx;$('#tSub').textContent=(s.sub?s.sub+' ':'')+'Step '+(S.i+1)+' of '+st.length;
+ $('#tIc').innerHTML='<svg viewBox="0 0 24 24">'+(ICON[s.k]||ICON.straight)+'</svg>';
+ function d(){draw($('#map3'),S.view,{you:S.loc,dest:S.dest,route:S.route,step:S.i});floors('#fl3',d)}d();
+ $('#back').disabled=S.i===0;$('#back').style.opacity=S.i===0?.45:1;
+ var n=$('#next');n.innerHTML=s.k==='lift'?'Scan the code at the lift':(last?'Finish':'Next')+' <svg><use href="#ch"/></svg>'}
+$('#next').onclick=function(){var s=S.route.steps[S.i];
+ if(s.k==='lift'){var want=s.to==='F'?'AR-2-LIFT':'AR-G-LIFT';scanScreen('Floors do not switch on their own. Scan the code beside the lift on the '+FL[s.to].toLowerCase()+' to carry on.',want);return}
+ if(S.i<S.route.steps.length-1){S.i++;S.view=S.route.steps[S.i].f;renderNav()}else arrive()};
+$('#back').onclick=function(){if(S.i>0){S.i--;S.view=S.route.steps[S.i].f;renderNav()}};
+$('#end').onclick=function(){mapScreen()};
+function arrive(){$('#arrP').textContent=S.dest.n+', '+FL[S.dest.f].toLowerCase();show('s-arr')}
+$('#done').onclick=function(){S.loc=null;S.dest=null;S.route=null;scanScreen()};
+$('#find').onclick=function(){S.loc=S.dest.d;S.code=S.code;mapScreen()};
+$('#scanAgain').onclick=function(){S.dest=null;scanScreen()};
+$('#rescan').onclick=function(){S.dest=null;scanScreen('Scan another code to update where you are.')};
+$('#sumBack').onclick=function(){mapScreen()};
+$('#go').onclick=function(){startNav()};
+$('#q').oninput=function(){list(this.value)};
+$('#typed').onsubmit=function(e){e.preventDefault();doScan($('#codeIn').value.trim().toUpperCase())};
+scanScreen();
+})();
+</script>
+
+</html>

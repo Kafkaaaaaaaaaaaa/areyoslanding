@@ -13,4 +13,4 @@ Files
   assets/*.svg, *.png   logos, favicons, share image from the Areyos logo pack
 
 Edit copy directly in index.html. Brand colors are the :root variables at the top of assets/styles.css.
-Contact details to change: search index.html for 85914 36477 and areyosdemo.vercel.app.
+Contact details to change: search index.html for 85914 36477. The demo lives in the demo/ folder (areyos.in/demo/); "See live demo" links point to /demo/.
