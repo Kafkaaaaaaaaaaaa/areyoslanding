@@ -137,6 +137,30 @@
   </div>
 </section>
 
+<!-- Rush hour: chaos vs order -->
+<section class="sec rush" id="rush">
+  <div class="wrap">
+    <h2 class="h2" data-wipe>Same crowd. Same floor. Rush hour.</h2>
+    <p class="lede rush-lede">Without a guide, every visitor is guessing. Press the button to see the same floor with Areyos.</p>
+    <div class="rush-card" id="rushCard">
+      <div class="rush-bar">
+        <div class="rush-seg" role="group" aria-label="Compare rush hour">
+          <button type="button" id="rChaos" aria-pressed="true">Rush hour</button>
+          <button type="button" id="rOrder" aria-pressed="false">With Areyos</button>
+        </div>
+        <p class="rush-cap" id="rCap" aria-live="polite">Hospital, 10:30 am. Nobody knows where to go.</p>
+      </div>
+      <svg class="rush-svg" id="rush-svg" viewBox="0 0 960 420" role="img" aria-label="Hospital floor plan full of visitors. Without Areyos they crowd the corridor and ask at reception. With Areyos each visitor walks a clear route to their room."></svg>
+      <dl class="rush-stats" id="rStats">
+        <div><dt id="rL1">Asking at reception</dt><dd id="rV1">0</dd></div>
+        <div><dt id="rL2">Visitors lost</dt><dd id="rV2">0</dd></div>
+        <div><dt id="rL3">Wrong turns</dt><dd id="rV3">0</dd></div>
+      </dl>
+      <p class="rush-note">Illustrative simulation, not real hospital data.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= COST (video) ================= -->
 <section class="sec sec--tint" id="cost" data-stop="The cost">
   <div class="wrap watch">
@@ -382,6 +406,7 @@
 <script src="assets/gsap.min.js" defer></script>
 <script src="assets/ScrollTrigger.min.js" defer></script>
 <script src="assets/main.js" defer></script>
+<script src="assets/rush.js" defer></script>
 <script src="assets/analytics.js" defer></script>
 </body>
 </html>

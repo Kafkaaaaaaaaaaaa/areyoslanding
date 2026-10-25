@@ -397,3 +397,44 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .watch-frame{margin:0;justify-self:center;width:min(100%,340px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:var(--ink);border:1px solid var(--line);box-shadow:0 30px 70px rgba(10,10,10,.18)}
 .watch-frame video{display:block;width:100%;height:100%;object-fit:cover}
 @media (min-width:880px){.watch{grid-template-columns:1.1fr .9fr}.watch-frame{justify-self:end;width:min(100%,360px)}}
+
+/* ---- rush hour: chaos vs order ---- */
+.rush{background:var(--paper)}
+.rush-lede{margin-top:18px;max-width:34em}
+.rush-card{margin-top:clamp(28px,4vw,48px);padding:clamp(14px,2vw,24px);border:1px solid var(--line);border-radius:20px;background:var(--tint)}
+.rush-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-bottom:clamp(12px,1.6vw,20px)}
+.rush-seg{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:#fff;max-width:100%}
+.rush-seg button{padding:.75em 1.2em;min-height:44px;border:0;border-radius:9px;background:none;color:var(--body);font-size:.9375rem;font-weight:600;line-height:1.1;cursor:pointer;transition:background-color .3s,color .3s}
+.rush-seg button:hover{color:var(--ink)}
+.rush-seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.rush-cap{flex:1 1 220px;min-width:0;font-size:.9375rem;color:var(--body)}
+.rush-svg{display:block;width:100%;height:auto;border-radius:12px;background:#fff}
+.rush-svg .rm{fill:#F4F7FD;stroke:rgba(10,10,10,.16);stroke-width:1.5;transition:fill .35s}
+.rush-svg .rm.hit{fill:#C9DAFF}
+.rush-svg .rt{font:600 13px var(--font);fill:rgba(10,10,10,.55);text-anchor:middle}
+.rush-svg .cr{fill:#EDF1F9}
+.rush-svg .lane{fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:0;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s var(--ease) calc(var(--i)*70ms),opacity .01s}
+.order .rush-svg .lane{opacity:.26;stroke-dashoffset:0}
+.rush-svg .dsk{fill:#fff;stroke:rgba(10,10,10,.3);stroke-width:1.5}
+.rush-svg .dsk-t{font:600 11px var(--font);fill:rgba(10,10,10,.55);text-anchor:middle}
+.rush-svg .pp{fill:#4A4A4A;transition:fill .5s}
+.rush-svg .pp.lost{fill:#C2410C}
+.order .rush-svg .pp{fill:var(--blue)}
+.rush-svg .q{font:800 12px var(--font);fill:#C2410C;text-anchor:middle;transition:opacity .3s}
+.rush-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:clamp(14px,2vw,22px) 0 0}
+.rush-stats div{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;min-width:0}
+.rush-stats dt{font-size:.8125rem;color:var(--slate);line-height:1.3}
+.rush-stats dd{margin:4px 0 0;font-size:clamp(1.5rem,3.4vw,2.25rem);font-weight:650;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums;color:#C2410C;transition:color .4s}
+.order .rush-stats dd{color:var(--blue)}
+.rush-note{margin-top:12px;font-size:.8125rem;color:var(--slate)}
+@media(max-width:520px){.rush-stats{gap:8px}.rush-stats div{padding:10px 12px}.rush-stats dt{font-size:.75rem}}
+.rush-svg .heat{fill:rgba(194,65,12,.12);pointer-events:none}
+.rush-svg .ring{fill:none;stroke:var(--blue);stroke-width:2;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;opacity:0;pointer-events:none}
+.rush-svg .tr{stroke:var(--blue);stroke-width:4;stroke-linecap:round;pointer-events:none}
+.rush-svg .bub,.rush-svg .tip{font:600 12px var(--font);text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round;pointer-events:none}
+.rush-svg .bub{fill:#C2410C}.rush-svg .tip{fill:var(--blue-deep)}
+.rush-svg{touch-action:pan-y}
+@keyframes rushNudge{0%,100%{box-shadow:0 0 0 0 rgba(24,84,200,.45)}60%{box-shadow:0 0 0 12px rgba(24,84,200,0)}}
+.rush-seg button.nudge{animation:rushNudge 1.4s ease-out infinite;color:var(--blue)}
+@media(prefers-reduced-motion:reduce){.rush-seg button.nudge{animation:none}}
+@media(max-width:600px){.rush-svg .rt{font-size:21px}.rush-svg .dsk-t{font-size:17px}.rush-svg .pp{r:8px}.rush-svg .bub,.rush-svg .tip{font-size:19px;stroke-width:7px}.rush-svg .q{font-size:18px}.rush-svg .tr{stroke-width:6px}}
