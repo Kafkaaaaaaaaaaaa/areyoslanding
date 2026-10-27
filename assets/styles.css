@@ -438,3 +438,19 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rush-seg button.nudge{animation:rushNudge 1.4s ease-out infinite;color:var(--blue)}
 @media(prefers-reduced-motion:reduce){.rush-seg button.nudge{animation:none}}
 @media(max-width:600px){.rush-svg .rt{font-size:21px}.rush-svg .dsk-t{font-size:17px}.rush-svg .pp{r:8px}.rush-svg .bub,.rush-svg .tip{font-size:19px;stroke-width:7px}.rush-svg .q{font-size:18px}.rush-svg .tr{stroke-width:6px}}
+
+/* FAQ section */
+.areyos-faq .areyos-faq__list { max-width: 760px; margin: 32px auto 0; }
+.areyos-faq details { border-bottom: 1px solid rgba(15, 23, 42, 0.12); padding: 18px 0; }
+.areyos-faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; }
+.areyos-faq summary::-webkit-details-marker { display: none; }
+.areyos-faq summary::after { content: "+"; float: right; font-weight: 400; }
+.areyos-faq details[open] summary::after { content: "\2212"; }
+.areyos-faq details p { margin: 12px 0 0; line-height: 1.6; color: #475569; }
+/* From the blog */
+.areyos-blog-links .areyos-blog-links__list { list-style: none; padding: 0; margin: 24px 0 16px; max-width: 760px; }
+.areyos-blog-links li { padding: 14px 0; border-bottom: 1px solid rgba(15, 23, 42, 0.12); }
+.areyos-blog-links a { font-weight: 600; text-decoration: none; }
+.areyos-blog-links a:hover { text-decoration: underline; }
+/* Only if the Hospitals card link changes colour */
+.venue h3 a { color: inherit; text-decoration: none; }
