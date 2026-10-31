@@ -209,7 +209,7 @@
   var T = { lost: $('#tLost'), clear: $('#tClear'), walker: $('#walker'), cap: $('#tCap'), bW: $('#bWalk'), bC: $('#bClear') };
   var tTl = null, tAuto = null;
   var CAP = { walk: 'Without a map, every route inside is a guess.', clear: 'A clear route changes everything.' };
-  function walkerAt(path, v) { var pt = path.getPointAtLength(v * path.getTotalLength()); setPos(T.walker, pt.x, pt.y); }
+  function walkerAt(path, v) { var pt = path.getPointAtLength(v * path.getTotalLength()); T.walker.setAttribute('transform', 'translate(' + pt.x + ' ' + pt.y + ')'); }
   function playTangle(mode, instant) {
     if (tTl) tTl.kill();
     var clear = mode === 'clear';
