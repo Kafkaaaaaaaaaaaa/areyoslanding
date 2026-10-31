@@ -53,7 +53,13 @@
   function corner(x0, y0, x1, y1, xv, r) {
     return 'M' + x0 + ' ' + y0 + 'H' + (xv - r) + 'Q' + xv + ' ' + y0 + ' ' + xv + ' ' + (y0 + r) + 'V' + (y1 - r) + 'Q' + xv + ' ' + y1 + ' ' + (xv + r) + ' ' + y1 + 'H' + x1;
   }
-  function setPos(el, x, y) { el.setAttribute('transform', 'translate(' + x + ' ' + y + ')'); }
+  /* Position via cx/cy, never via a transform attribute: GSAP owns the transform
+     (scale pop-in) and rewrites it, which used to halve the translate and leave
+     the dots left of the line, and let a late font re-layout fight the tween. */
+  function setPos(el, x, y) {
+    var cs = el.tagName.toLowerCase() === 'circle' ? [el] : Array.prototype.slice.call(el.querySelectorAll('circle'));
+    cs.forEach(function (c) { c.setAttribute('cx', x); c.setAttribute('cy', y); });
+  }
 
   function heroLayout() {
     var b = stair.getBoundingClientRect();
@@ -88,7 +94,7 @@
   }
 
   function heroIntro() {
-    var lower = $('#heroLower'), status = $('.status');
+    var lower = $('#heroLower'), status = $('.status'), pinDot = $('.pin', pinG);
     var wide = window.matchMedia('(min-width:1000px)').matches;
     var HIDE = 'inset(-14% 100% -24% -8%)', SHOW = 'inset(-14% -8% -24% -8%)';
     if (STATE.rm) { root.classList.remove('js'); G.set([sA, sB, sC], { '--d': 0 }); G.set(walk, { opacity: 0 }); return; }
@@ -112,7 +118,7 @@
     tl.to(status, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0);
     reveal(0, 0.05);
     if (wide) {
-      tl.fromTo(nStart, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, transformOrigin: 'center', ease: 'back.out(2)' }, 0.3);
+      tl.fromTo(nStart, { opacity: 0, attr: { r: 0 } }, { opacity: 1, attr: { r: 7 }, duration: 0.4, ease: 'back.out(2)' }, 0.3);
       tl.to(lower, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.5);
       tl.set(walk, { opacity: 1 }, 0.55);
       travel(sA, 0.85, 0.55);
@@ -121,18 +127,18 @@
       tl.to(chevs[1], { opacity: 1, duration: 0.3 }, 2.2); reveal(2, 2.25);
       travel(sC, 0.5, 2.55);
       tl.to(walk, { opacity: 0, duration: 0.25 }, 3.0);
-      tl.fromTo(pinG, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)', transformOrigin: 'center' }, 2.95);
+      tl.fromTo(pinG, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.95); tl.fromTo(pinDot, { attr: { r: 2 } }, { attr: { r: 9 }, duration: 0.5, ease: 'back.out(2.2)' }, 2.95);
     } else {
-      tl.fromTo(nStart, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, transformOrigin: 'center', ease: 'back.out(2)' }, 0.1);
+      tl.fromTo(nStart, { opacity: 0, attr: { r: 0 } }, { opacity: 1, attr: { r: 7 }, duration: 0.4, ease: 'back.out(2)' }, 0.1);
       tl.to(lower, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.5);
       tl.set(walk, { opacity: 1 }, 0.45);
       travel(sA, 0.7, 0.45);
-      tl.fromTo(nMid, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, transformOrigin: 'center', ease: 'back.out(2)' }, 1.1);
+      tl.fromTo(nMid, { opacity: 0, attr: { r: 0 } }, { opacity: 1, attr: { r: 7 }, duration: 0.35, ease: 'back.out(2)' }, 1.1);
       tl.to(chevs[0], { opacity: 1, duration: 0.3 }, 1.1); reveal(1, 1.1);
       travel(sB, 0.7, 1.2);
       tl.to(chevs[1], { opacity: 1, duration: 0.3 }, 1.85); reveal(2, 1.85);
       tl.to(walk, { opacity: 0, duration: 0.25 }, 1.95);
-      tl.fromTo(pinG, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2.2)', transformOrigin: 'center' }, 1.9);
+      tl.fromTo(pinG, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.9); tl.fromTo(pinDot, { attr: { r: 2 } }, { attr: { r: 9 }, duration: 0.5, ease: 'back.out(2.2)' }, 1.9);
     }
     tl.add(function () { G.set(words, { clearProps: 'clipPath' }); });
   }
