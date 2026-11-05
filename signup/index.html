@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a demo | Areyos</title>
+<meta name="description" content="Book a demo of Areyos QR indoor navigation for your hospital, mall, college, office or event. Scan. Walk. Arrive.">
+<meta name="theme-color" content="#1854C8">
+<link rel="icon" href="/signup/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/signup/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/signup/assets/apple-touch-icon.png">
+<link rel="preload" href="/signup/assets/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter Variable';font-style:normal;font-display:swap;font-weight:100 900;src:url(/signup/assets/inter-latin-wght-normal.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{
+  --blue:#1854C8; --blue-deep:#123F99; --blue-ink:#0B2A6B; --sky:#80AAFF; --ink:#0A0A0A; --tint:#F4F7FD;
+  --body:#4A4A4A; --muted:#5B6472; --line:rgba(10,10,10,.12); --card:#fff; --ok:#16794A; --warn:#C2410C;
+  --font:'Inter Variable','Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--font);background:var(--tint);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.page{min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+
+/* ---------- brand panel ---------- */
+.brandpanel{
+  position:relative;overflow:hidden;color:#fff;padding:clamp(28px,4vw,52px);
+  background:radial-gradient(120% 90% at 0% 0%,#2D6BE0 0%,var(--blue) 40%,var(--blue-deep) 100%);
+  display:flex;flex-direction:column;justify-content:space-between;gap:32px;
+}
+.brandpanel::before{ /* tiled chevrons: the mark, everywhere */
+  content:"";position:absolute;inset:0;opacity:.1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23fff'%3E%3Cpath id='c' transform='translate(10 12) scale(.62)' d='M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z'/%3E%3Cpath transform='translate(70 72) scale(.62)' d='M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:120px 120px;
+  -webkit-mask-image:linear-gradient(160deg,#000 0%,rgba(0,0,0,.35) 55%,transparent 90%);mask-image:linear-gradient(160deg,#000 0%,rgba(0,0,0,.35) 55%,transparent 90%);
+}
+.mark-xl{position:absolute;right:-18%;bottom:-14%;width:min(120%,760px);color:#fff;opacity:.09;pointer-events:none}
+.mark-xl svg{display:block;width:100%;height:auto}
+.brandpanel>*:not(.mark-xl){position:relative;z-index:1}
+.logo{display:inline-block;line-height:0}
+.logo img{display:block;width:clamp(150px,16vw,210px);height:auto}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:7px 14px;border-radius:99px;font-size:.8125rem;margin-top:28px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#7CE3A6;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(124,227,166,.7)}70%,100%{box-shadow:0 0 0 8px rgba(124,227,166,0)}}
+.brandpanel h2{font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1.02;margin:20px 0 14px;letter-spacing:-.04em;font-weight:700;text-wrap:balance}
+.brandpanel p.lead{font-size:1.0625rem;opacity:.92;max-width:30em;margin:0}
+.tag{display:flex;flex-wrap:wrap;gap:.35em .5em;align-items:center;margin-top:22px;font-weight:700;letter-spacing:-.02em;font-size:clamp(1.1rem,1.8vw,1.4rem)}
+.tag svg{width:.85em;height:.8em;color:var(--sky)}
+.routeart{margin:28px 0 0;max-width:460px}
+.routeart svg{width:100%;height:auto;display:block}
+.dash{stroke-dasharray:8 9;animation:dash 1.3s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-17}}
+.ping{transform-box:fill-box;transform-origin:center;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{opacity:.6;transform:scale(.6)}100%{opacity:0;transform:scale(2.4)}}
+.perks{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.perks li{display:flex;gap:14px;align-items:flex-start;font-size:.9375rem}
+.perks .ic{flex:none;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.16);display:grid;place-items:center}
+.perks .ic svg{width:15px;height:14px}
+.perks b{display:block;font-weight:650}
+.perks .s{opacity:.82;font-size:.875rem}
+.live{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:11px 18px;border-radius:12px;background:#fff;color:var(--blue);font-weight:650;text-decoration:none;font-size:.9375rem;transition:transform .3s var(--ease)}
+.live:hover{transform:translateY(-2px)}
+.live svg{width:13px;height:12px}
+.contact{font-size:.875rem;opacity:.9;margin-top:22px}
+.contact a{color:#fff}
+
+/* ---------- form panel ---------- */
+.formpanel{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:clamp(24px,4vw,48px) clamp(16px,3vw,40px)}
+.formpanel::before{
+  content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%231854C8'%3E%3Cpath transform='translate(10 12) scale(.62)' d='M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z'/%3E%3Cpath transform='translate(70 72) scale(.62)' d='M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:120px 120px}
+.formpanel>*{position:relative}
+.card{width:100%;max-width:540px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,32px);box-shadow:0 30px 60px -34px rgba(24,84,200,.45)}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.cardhead img{display:block;height:26px;width:auto}
+.cardhead span{font-size:.8125rem;font-weight:650;color:var(--blue);background:#EAF0FD;border-radius:99px;padding:5px 12px;white-space:nowrap}
+h1{font-size:clamp(1.6rem,3vw,2rem);margin:0 0 6px;letter-spacing:-.035em;line-height:1.1;font-weight:700}
+.sub{color:var(--muted);margin:0 0 22px}
+
+.steps{display:flex;align-items:center;margin:0 0 10px}
+.dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);color:var(--muted);background:#fff;display:grid;place-items:center;font-size:.8125rem;font-weight:700;flex:none;transition:.3s var(--ease)}
+.dot.on{border-color:var(--blue);background:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(24,84,200,.15)}
+.dot.ok{border-color:var(--blue-deep);background:var(--blue-deep);color:#fff}
+.line{flex:1;height:3px;background:var(--line);margin:0 6px;border-radius:2px;overflow:hidden}
+.line i{display:block;height:100%;width:0;background:var(--blue);transition:width .4s var(--ease)}
+#stepLabel{font-size:.8125rem;color:var(--muted);margin:0 0 4px}
+
+.step{display:none}
+.step.active{display:block;animation:fade .3s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+label{display:block;font-weight:600;font-size:.875rem;margin:18px 0 6px}
+label .opt{font-weight:400;color:var(--muted)}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink);min-height:48px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+textarea{min-height:84px;resize:vertical}
+.err{border-color:var(--warn)!important}
+.errmsg{color:var(--warn);font-size:.8125rem;margin-top:5px;display:none}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;width:0;height:0;min-height:0;padding:0;border:0}
+.chips label{margin:0;font-weight:500;border:1px solid var(--line);border-radius:99px;padding:10px 15px;cursor:pointer;background:#fff;font-size:.875rem;transition:.2s}
+.chips label:hover{border-color:var(--blue)}
+.chips input:checked+label{background:var(--blue);color:#fff;border-color:var(--blue)}
+.chips input:focus-visible+label{outline:2px solid var(--blue);outline-offset:2px}
+
+.btns{display:flex;gap:10px;margin-top:26px}
+button{font:inherit;font-weight:650;border:0;border-radius:12px;padding:0 22px;min-height:50px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+button svg{width:13px;height:12px}
+.primary{background:var(--blue);color:#fff;flex:1;transition:background-color .2s,transform .3s var(--ease)}
+.primary:hover{background:var(--blue-deep)}
+.primary:active{transform:scale(.985)}
+.primary:disabled{opacity:.6;cursor:not-allowed}
+.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.hp{position:absolute;left:-9999px;height:0;width:0;overflow:hidden}
+.fail{color:var(--warn);font-size:.875rem;margin-top:14px;display:none}
+
+.done{text-align:center;padding:10px 0 4px}
+.done .badge{position:relative;width:104px;height:104px;border-radius:50%;background:var(--blue);display:grid;place-items:center;margin:6px auto 30px}
+.done .badge svg{width:46px;height:44px;color:#fff}
+.done .badge::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid var(--sky);opacity:.6;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.25);opacity:0}}
+.done img{display:block;height:30px;width:auto;margin:0 auto 18px}
+.done .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+.done .row a{text-decoration:none}
+
+.foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.8125rem;text-align:center}
+.foot img{height:18px;width:auto;display:block}
+.foot a{color:var(--blue);font-weight:600}
+
+@media (max-width:900px){
+  .page{grid-template-columns:minmax(0,1fr)}
+  .brandpanel{padding:26px 20px 30px;gap:18px}
+  .routeart,.perks,.contact,.live{display:none}
+  .brandpanel h2{margin-top:16px}
+  .pill{margin-top:18px}
+  .mark-xl{right:-30%;bottom:-30%;width:120%}
+}
+@media (max-width:420px){.cardhead span{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ch" viewBox="11 22 52 50"><path fill="currentColor" d="M19.2 27.8 33.6 43.7v6.6L19.2 66.2l-7.8-8.1L23.4 47 11.4 35.9ZM37.8 22.7 62.4 47 37.8 71.3l-7.2-7.5L48.9 47 30.6 30.2Z"/></symbol></svg>
+<div class="page">
+
+  <!-- ============ BRAND PANEL ============ -->
+  <aside class="brandpanel">
+    <div class="mark-xl" aria-hidden="true"><svg viewBox="0 0 52 50"><use href="#ch" width="52" height="50"/></svg></div>
+    <div>
+      <a class="logo" href="https://areyos.in" aria-label="Areyos home"><img src="/signup/assets/areyos-lockup-white.svg" alt="Areyos" width="210" height="63"></a>
+      <div class="pill"><i></i> Commencing in Chhattisgarh, Maharashtra and Odisha</div>
+      <h2>See Areyos in your building.</h2>
+      <p class="lead">Scan a QR code, pick a destination, follow step-by-step directions. No app to download. Book a demo and we'll show you how it would work in your venue.</p>
+      <div class="tag" aria-label="Scan. Walk. Arrive.">Scan. <svg><use href="#ch"/></svg> Walk. <svg><use href="#ch"/></svg> Arrive.</div>
+
+      <div class="routeart" aria-hidden="true">
+        <svg viewBox="0 0 420 170" fill="none">
+          <rect x="1" y="1" width="418" height="168" rx="16" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="60" y="20" width="70" height="34" rx="6" fill="rgba(255,255,255,.1)"/>
+          <rect x="170" y="100" width="76" height="46" rx="6" fill="rgba(255,255,255,.1)"/>
+          <rect x="290" y="20" width="90" height="34" rx="6" fill="rgba(255,255,255,.1)"/>
+          <path d="M40 130 H150 V76 H260 V112 H360 V96" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="dash"/>
+          <circle cx="40" cy="130" r="10" fill="#fff" class="ping"/>
+          <circle cx="40" cy="130" r="8" fill="#fff"/>
+          <circle cx="40" cy="130" r="3.5" fill="#1854C8"/>
+          <path d="M360 70c-7 0-12 5.2-12 11.6 0 8.4 12 22.4 12 22.4s12-14 12-22.4C372 75.2 367 70 360 70z" fill="#80AAFF"/>
+          <circle cx="360" cy="82" r="4.5" fill="#123F99"/>
+          <text x="40" y="154" fill="#fff" fill-opacity=".88" font-size="11" font-family="Inter,system-ui">You are here</text>
+          <text x="316" y="140" fill="#fff" fill-opacity=".88" font-size="11" font-family="Inter,system-ui">Destination</text>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <ul class="perks">
+        <li><div class="ic"><svg><use href="#ch"/></svg></div><div><b>Live in hours, not weeks</b><span class="s">Mapping your venue takes a few hours.</span></div></li>
+        <li><div class="ic"><svg><use href="#ch"/></svg></div><div><b>Scan with the phone camera</b><span class="s">Map changes never need QR codes reprinted.</span></div></li>
+        <li><div class="ic"><svg><use href="#ch"/></svg></div><div><b>Multi-floor routing</b><span class="s">Lift and stair directions between floors.</span></div></li>
+      </ul>
+      <a class="live" href="/demo/">Try the live demo now <svg><use href="#ch"/></svg></a>
+      <div class="contact">areyos.in &middot; <a href="mailto:anas@areyos.in">anas@areyos.in</a></div>
+    </div>
+  </aside>
+
+  <!-- ============ FORM PANEL ============ -->
+  <main class="formpanel">
+    <div class="card">
+      <div id="formArea">
+        <div class="cardhead"><a href="https://areyos.in" aria-label="Areyos home"><img src="/signup/assets/areyos-lockup.svg" alt="Areyos" width="87" height="26"></a><span>Book a demo</span></div>
+        <h1>Book a demo</h1>
+        <p class="sub">Tell us about your venue. It takes under 2 minutes.</p>
+
+        <div class="steps" aria-hidden="true">
+          <div class="dot on" id="d1">1</div><div class="line"><i id="l1"></i></div>
+          <div class="dot" id="d2">2</div><div class="line"><i id="l2"></i></div>
+          <div class="dot" id="d3">3</div>
+        </div>
+        <div id="stepLabel">Step 1 of 3 &middot; Your venue</div>
+
+        <form id="f" novalidate autocomplete="on">
+          <div class="hp"><label>Leave blank<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+          <!-- STEP 1 -->
+          <div class="step active" data-step="1">
+            <label for="venue_name">Venue name</label>
+            <input id="venue_name" name="venue_name" required placeholder="e.g. Holy Spirit Hospital">
+            <div class="errmsg">Please enter your venue name.</div>
+
+            <label for="venue_type">Venue type</label>
+            <select id="venue_type" name="venue_type" required>
+              <option value="">Select one</option>
+              <option>Hospital</option><option>Mall</option><option>College / University</option>
+              <option>Office</option><option>Event / Exhibition</option><option>Airport / Station</option><option>Other</option>
+            </select>
+            <div class="errmsg">Please choose a venue type.</div>
+
+            <label for="city">City and area</label>
+            <input id="city" name="city" required placeholder="e.g. Andheri East, Mumbai">
+            <div class="errmsg">Please enter the city and area.</div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="step" data-step="2">
+            <label for="contact_name">Your name</label>
+            <input id="contact_name" name="contact_name" required autocomplete="name">
+            <div class="errmsg">Please enter your name.</div>
+
+            <label for="role">Your role</label>
+            <input id="role" name="role" required placeholder="e.g. Administrator, Marketing head">
+            <div class="errmsg">Please enter your role.</div>
+
+            <label for="phone">Phone / WhatsApp</label>
+            <input id="phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="+91 98XXXXXXXX">
+            <div class="errmsg">Please enter a valid phone number.</div>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email">
+            <div class="errmsg">Please enter a valid email.</div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="step" data-step="3">
+            <label>How would you like the demo? <span class="opt">(optional)</span></label>
+            <div class="chips">
+              <input type="radio" id="df1" name="demo_format" value="Video call"><label for="df1">Video call</label>
+              <input type="radio" id="df2" name="demo_format" value="Phone / WhatsApp"><label for="df2">Phone / WhatsApp</label>
+              <input type="radio" id="df3" name="demo_format" value="In person"><label for="df3">In person</label>
+            </div>
+
+            <label>Best time to reach you <span class="opt">(optional)</span></label>
+            <div class="chips">
+              <input type="radio" id="bt1" name="demo_time" value="Morning"><label for="bt1">Morning</label>
+              <input type="radio" id="bt2" name="demo_time" value="Afternoon"><label for="bt2">Afternoon</label>
+              <input type="radio" id="bt3" name="demo_time" value="Evening"><label for="bt3">Evening</label>
+            </div>
+
+            <label>Number of floors <span class="opt">(optional)</span></label>
+            <div class="chips">
+              <input type="radio" id="fl1" name="floors" value="1"><label for="fl1">1</label>
+              <input type="radio" id="fl2" name="floors" value="2-3"><label for="fl2">2-3</label>
+              <input type="radio" id="fl3" name="floors" value="4-6"><label for="fl3">4-6</label>
+              <input type="radio" id="fl4" name="floors" value="7+"><label for="fl4">7+</label>
+            </div>
+
+            <label>Biggest problem today <span class="opt">(pick any)</span></label>
+            <div class="chips">
+              <input type="checkbox" id="p1" name="problems" value="Visitors get lost"><label for="p1">Visitors get lost</label>
+              <input type="checkbox" id="p2" name="problems" value="Too many 'where is X' questions"><label for="p2">Too many "where is X" questions</label>
+              <input type="checkbox" id="p3" name="problems" value="Emergency exit clarity"><label for="p3">Emergency exit clarity</label>
+              <input type="checkbox" id="p4" name="problems" value="Other"><label for="p4">Other</label>
+            </div>
+
+            <label>Do you have floor plans? <span class="opt">(optional)</span></label>
+            <div class="chips">
+              <input type="radio" id="fp1" name="floorplans" value="Yes, digital"><label for="fp1">Yes, digital</label>
+              <input type="radio" id="fp2" name="floorplans" value="Yes, printed"><label for="fp2">Yes, printed</label>
+              <input type="radio" id="fp3" name="floorplans" value="No"><label for="fp3">No</label>
+            </div>
+
+            <label>When would you like to start? <span class="opt">(optional)</span></label>
+            <div class="chips">
+              <input type="radio" id="t1" name="timeline" value="Within 1 month"><label for="t1">Within 1 month</label>
+              <input type="radio" id="t2" name="timeline" value="Within 3 months"><label for="t2">Within 3 months</label>
+              <input type="radio" id="t3" name="timeline" value="Just exploring"><label for="t3">Just exploring</label>
+            </div>
+
+            <label for="notes">Anything else? <span class="opt">(optional)</span></label>
+            <textarea id="notes" name="notes"></textarea>
+          </div>
+
+          <div class="fail" id="fail" role="alert">Something went wrong. Please try again, or email us at <a href="mailto:anas@areyos.in">anas@areyos.in</a>.</div>
+
+          <div class="btns">
+            <button type="button" class="ghost" id="back" style="display:none">Back</button>
+            <button type="button" class="primary" id="next"><span id="nextTxt">Next</span> <svg aria-hidden="true"><use href="#ch"/></svg></button>
+          </div>
+        </form>
+      </div>
+
+      <div class="done" id="done" style="display:none">
+        <div class="badge"><svg aria-hidden="true"><use href="#ch"/></svg></div>
+        <img src="/signup/assets/areyos-lockup.svg" alt="Areyos" width="100" height="30">
+        <h1>Thank you!</h1>
+        <p class="sub">We'll contact you within 24 hours to schedule your demo.</p>
+        <div class="row">
+          <a href="/demo/"><button class="primary" type="button" style="padding:0 22px">Try the live demo <svg aria-hidden="true"><use href="#ch"/></svg></button></a>
+          <a href="https://areyos.in"><button class="ghost" type="button">Back to areyos.in</button></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot"><img src="/signup/assets/areyos-lockup.svg" alt="Areyos" width="60" height="18"> <span>Scan. Walk. Arrive.</span> <span>&middot;</span> <a href="mailto:anas@areyos.in">anas@areyos.in</a></div>
+  </main>
+</div>
+
+<script>
+  // 1) Paste your Google Apps Script Web App URL here (see apps-script.gs)
+  var ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+  var TITLES = ['Your venue', 'Your contact details', 'A few quick questions'];
+  var step = 1, TOTAL = 3;
+  var form = document.getElementById('f');
+  var label = document.getElementById('stepLabel');
+  var nextBtn = document.getElementById('next');
+  var nextTxt = document.getElementById('nextTxt');
+  var backBtn = document.getElementById('back');
+  var fail = document.getElementById('fail');
+
+  function show(n){
+    step = n;
+    document.querySelectorAll('.step').forEach(function(s){
+      s.classList.toggle('active', Number(s.dataset.step) === n);
+    });
+    for (var i = 1; i <= TOTAL; i++){
+      var d = document.getElementById('d' + i);
+      d.className = 'dot' + (i < n ? ' ok' : i === n ? ' on' : '');
+      d.innerHTML = i < n ? '&#10003;' : i;
+      if (i < TOTAL) document.getElementById('l' + i).style.width = (i < n ? '100%' : '0');
+    }
+    label.textContent = 'Step ' + n + ' of ' + TOTAL + ' · ' + TITLES[n - 1];
+    backBtn.style.display = n > 1 ? 'inline-flex' : 'none';
+    nextTxt.textContent = n === TOTAL ? 'Book my demo' : 'Next';
+    fail.style.display = 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function validStep(n){
+    var ok = true;
+    var box = document.querySelector('.step[data-step="'+n+'"]');
+    box.querySelectorAll('[required]').forEach(function(el){
+      var v = el.value.trim(), good = v.length > 0;
+      if (el.type === 'email') good = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (el.type === 'tel') good = v.replace(/\D/g,'').length >= 10;
+      el.classList.toggle('err', !good);
+      var m = el.nextElementSibling;
+      if (m && m.classList.contains('errmsg')) m.style.display = good ? 'none' : 'block';
+      if (!good) ok = false;
+    });
+    return ok;
+  }
+
+  function collect(){
+    var d = {};
+    var fd = new FormData(form);
+    fd.forEach(function(v,k){
+      if (k === 'problems') return;
+      d[k] = v;
+    });
+    d.problems = fd.getAll('problems').join(', ');
+    d.request_type = 'Book a demo';
+    d.source_page = location.href;
+    return d;
+  }
+
+  nextBtn.addEventListener('click', function(){
+    if (!validStep(step)) return;
+    if (step < TOTAL) { show(step + 1); return; }
+
+    var data = collect();
+    if (data.website) { done(); return; } // honeypot filled: silently drop
+    if (ENDPOINT.indexOf('PASTE_') === 0) {
+      fail.textContent = 'Form is not connected yet (endpoint missing).';
+      fail.style.display = 'block'; return;
+    }
+    nextBtn.disabled = true; nextTxt.textContent = 'Sending...';
+    fetch(ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors', // Apps Script does not send CORS headers; request still goes through
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    }).then(done).catch(function(){
+      fail.style.display = 'block';
+      nextBtn.disabled = false; nextTxt.textContent = 'Book my demo';
+    });
+  });
+
+  backBtn.addEventListener('click', function(){ if (step > 1) show(step - 1); });
+
+  function done(){
+    document.getElementById('formArea').style.display = 'none';
+    document.getElementById('done').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
