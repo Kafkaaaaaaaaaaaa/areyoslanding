@@ -127,7 +127,7 @@ button svg{width:13px;height:12px}
 .foot a{color:var(--blue);font-weight:600}
 
 @media (max-width:900px){
-  .page{grid-template-columns:minmax(0,1fr)}
+  .page{grid-template-columns:minmax(0,1fr);align-content:start}
   .brandpanel{padding:16px 20px 18px;gap:0}
   .routeart,.perks,.contact,.live,.tag,.brandpanel p.lead{display:none}
   .logo img{width:120px}
@@ -187,13 +187,12 @@ button svg{width:13px;height:12px}
       <div id="formArea">
         <div class="cardhead"><a href="https://areyos.in" aria-label="Areyos home"><picture><source srcset="/signup/assets/areyos-logo.svg" media="(prefers-reduced-motion: reduce)"><img src="/signup/assets/areyos-logo-animated.svg" alt="Areyos" width="87" height="26"></picture></a></div>
         <h1>Book a demo</h1>
-        <p class="sub">Two quick steps. Under a minute.</p>
+        <p class="sub">Two quick steps, then send it on WhatsApp.</p>
 
         <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
         <div id="stepLabel">Step 1 of 2</div>
 
         <form id="f" novalidate autocomplete="on">
-          <div class="hp"><label>Leave blank<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
 
           <!-- STEP 1 -->
           <div class="step active" data-step="1">
@@ -239,8 +238,6 @@ button svg{width:13px;height:12px}
             </div>
           </div>
 
-          <div class="fail" id="fail" role="alert">Something went wrong. Please try again, or email us at <a href="mailto:anas@areyos.in">anas@areyos.in</a>.</div>
-
           <div class="btns">
             <button type="button" class="ghost" id="back" style="display:none">Back</button>
             <button type="button" class="primary" id="next"><span id="nextTxt">Next</span> <svg aria-hidden="true"><use href="#ch"/></svg></button>
@@ -251,10 +248,11 @@ button svg{width:13px;height:12px}
       <div class="done" id="done" style="display:none">
         <div class="badge"><svg aria-hidden="true"><use href="#ch"/></svg></div>
         <img src="/signup/assets/areyos-lockup.svg" alt="Areyos" width="100" height="30">
-        <h1>Thank you!</h1>
-        <p class="sub">We'll contact you within 24 hours to schedule your demo.</p>
+        <h1>One last tap</h1>
+        <p class="sub">WhatsApp should open with your details ready. Just press send and we'll get back to you.</p>
         <div class="row">
-          <a href="/demo/"><button class="primary" type="button" style="padding:0 22px">Try the live demo <svg aria-hidden="true"><use href="#ch"/></svg></button></a>
+          <a id="waBtn" href="#" target="_blank" rel="noopener"><button class="primary" type="button" style="padding:0 22px">Open WhatsApp <svg aria-hidden="true"><use href="#ch"/></svg></button></a>
+          <a href="/demo/"><button class="ghost" type="button">Try the live demo</button></a>
           <a href="https://areyos.in"><button class="ghost" type="button">Back to areyos.in</button></a>
         </div>
       </div>
@@ -265,8 +263,8 @@ button svg{width:13px;height:12px}
 </div>
 
 <script>
-  // 1) Paste your Google Apps Script Web App URL here (see apps-script.gs)
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbydVD5mCmV-qoB_QVRL1n5OqEDoNnDbGRyECpFyuO2pGkNOUAeUzaYIBHSpDsvqyMHs/exec";
+  // Where demo requests go: this WhatsApp number (country code + number, digits only)
+  var WHATSAPP = "918591436477";
 
   var step = 1, TOTAL = 2;
   var form = document.getElementById('f');
@@ -276,7 +274,6 @@ button svg{width:13px;height:12px}
   var nextBtn = document.getElementById('next');
   var nextTxt = document.getElementById('nextTxt');
   var backBtn = document.getElementById('back');
-  var fail = document.getElementById('fail');
 
   // Keep the visitor on the form: only scroll if the top of the card is out of view
   function keepCardInView(){
@@ -294,8 +291,7 @@ button svg{width:13px;height:12px}
     barFill.style.width = (n / TOTAL * 100) + '%';
     label.textContent = 'Step ' + n + ' of ' + TOTAL;
     backBtn.style.display = n > 1 ? 'inline-flex' : 'none';
-    nextTxt.textContent = n === TOTAL ? 'Book my demo' : 'Next';
-    fail.style.display = 'none';
+    nextTxt.textContent = n === TOTAL ? 'Send on WhatsApp' : 'Next';
     keepCardInView();
   }
 
@@ -328,39 +324,34 @@ button svg{width:13px;height:12px}
     return ok;
   }
 
-  function collect(){
-    var d = {};
-    var fd = new FormData(form);
-    fd.forEach(function(v,k){
-      if (k === 'problems') return;
-      d[k] = v;
-    });
-    d.problems = fd.getAll('problems').join(', ');
-    d.request_type = 'Book a demo';
-    d.source_page = location.href;
-    return d;
+  function buildMessage(){
+    var v = function(id){ return (document.getElementById(id).value || '').trim(); };
+    var typeEl = form.querySelector('input[name="venue_type"]:checked');
+    var timeEl = form.querySelector('input[name="demo_time"]:checked');
+    var lines = [
+      "Hi Areyos, I'd like to book a demo.",
+      "",
+      "Venue: " + v('venue_name') + (typeEl ? " (" + typeEl.value + ")" : ""),
+      "City: " + v('city'),
+      "Name: " + v('contact_name'),
+      "Phone: " + v('phone')
+    ];
+    if (v('email')) lines.push("Email: " + v('email'));
+    if (timeEl) lines.push("Best time to call: " + timeEl.value);
+    return lines.join("\n");
+  }
+
+  function waLink(){
+    return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(buildMessage());
   }
 
   nextBtn.addEventListener('click', function(){
     if (!validStep(step)) return;
     if (step < TOTAL) { show(step + 1); return; }
-
-    var data = collect();
-    if (data.website) { done(); return; } // honeypot filled: silently drop
-    if (ENDPOINT.indexOf('PASTE_') === 0) {
-      fail.textContent = 'Form is not connected yet (endpoint missing).';
-      fail.style.display = 'block'; return;
-    }
-    nextBtn.disabled = true; nextTxt.textContent = 'Sending...';
-    fetch(ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors', // Apps Script does not send CORS headers; request still goes through
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify(data)
-    }).then(done).catch(function(){
-      fail.style.display = 'block';
-      nextBtn.disabled = false; nextTxt.textContent = 'Book my demo';
-    });
+    var url = waLink();
+    document.getElementById('waBtn').href = url;
+    done();
+    window.location.href = url; // opens WhatsApp with the message ready to send
   });
 
   backBtn.addEventListener('click', function(){ if (step > 1) show(step - 1); });
