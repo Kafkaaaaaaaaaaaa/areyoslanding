@@ -76,17 +76,12 @@ body{font-family:var(--font);background:var(--tint);color:var(--ink);line-height
 .card{width:100%;max-width:540px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,32px);box-shadow:0 30px 60px -34px rgba(24,84,200,.45)}
 .cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .cardhead img{display:block;height:26px;width:auto}
-.cardhead span{font-size:.8125rem;font-weight:650;color:var(--blue);background:#EAF0FD;border-radius:99px;padding:5px 12px;white-space:nowrap}
 h1{font-size:clamp(1.6rem,3vw,2rem);margin:0 0 6px;letter-spacing:-.035em;line-height:1.1;font-weight:700}
 .sub{color:var(--muted);margin:0 0 22px}
 
-.steps{display:flex;align-items:center;margin:0 0 10px}
-.dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);color:var(--muted);background:#fff;display:grid;place-items:center;font-size:.8125rem;font-weight:700;flex:none;transition:.3s var(--ease)}
-.dot.on{border-color:var(--blue);background:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(24,84,200,.15)}
-.dot.ok{border-color:var(--blue-deep);background:var(--blue-deep);color:#fff}
-.line{flex:1;height:3px;background:var(--line);margin:0 6px;border-radius:2px;overflow:hidden}
-.line i{display:block;height:100%;width:0;background:var(--blue);transition:width .4s var(--ease)}
-#stepLabel{font-size:.8125rem;color:var(--muted);margin:0 0 4px}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin:0 0 8px}
+.bar i{display:block;height:100%;width:50%;background:var(--blue);border-radius:2px;transition:width .4s var(--ease)}
+#stepLabel{font-size:.8125rem;color:var(--muted);margin:0 0 2px}
 
 .step{display:none}
 .step.active{display:block;animation:fade .3s var(--ease)}
@@ -133,13 +128,14 @@ button svg{width:13px;height:12px}
 
 @media (max-width:900px){
   .page{grid-template-columns:minmax(0,1fr)}
-  .brandpanel{padding:26px 20px 30px;gap:18px}
-  .routeart,.perks,.contact,.live{display:none}
-  .brandpanel h2{margin-top:16px}
-  .pill{margin-top:18px}
-  .mark-xl{right:-30%;bottom:-30%;width:120%}
+  .brandpanel{padding:16px 20px 18px;gap:0}
+  .routeart,.perks,.contact,.live,.tag,.brandpanel p.lead{display:none}
+  .logo img{width:120px}
+  .brandpanel h2{font-size:1.45rem;margin:10px 0 0;letter-spacing:-.03em}
+  .mark-xl{right:-30%;bottom:-60%;width:120%}
+  .formpanel{padding-top:20px}
+  .cardhead{margin-bottom:14px;padding-bottom:14px}
 }
-@media (max-width:420px){.cardhead span{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -151,8 +147,7 @@ button svg{width:13px;height:12px}
   <aside class="brandpanel">
     <div class="mark-xl" aria-hidden="true"><svg viewBox="0 0 52 50"><use href="#ch" width="52" height="50"/></svg></div>
     <div>
-      <a class="logo" href="https://areyos.in" aria-label="Areyos home"><img src="/signup/assets/areyos-lockup-white.svg" alt="Areyos" width="210" height="63"></a>
-      <div class="pill"><i></i> Commencing in Chhattisgarh, Maharashtra and Odisha</div>
+      <a class="logo" href="https://areyos.in" aria-label="Areyos home"><picture><source srcset="/signup/assets/areyos-logo-white.svg" media="(prefers-reduced-motion: reduce)"><img src="/signup/assets/areyos-logo-animated-white.svg" alt="Areyos" width="210" height="63"></picture></a>
       <h2>See Areyos in your building.</h2>
       <p class="lead">Scan a QR code, pick a destination, follow step-by-step directions. No app to download. Book a demo and we'll show you how it would work in your venue.</p>
       <div class="tag" aria-label="Scan. Walk. Arrive.">Scan. <svg><use href="#ch"/></svg> Walk. <svg><use href="#ch"/></svg> Arrive.</div>
@@ -190,16 +185,12 @@ button svg{width:13px;height:12px}
   <main class="formpanel">
     <div class="card">
       <div id="formArea">
-        <div class="cardhead"><a href="https://areyos.in" aria-label="Areyos home"><img src="/signup/assets/areyos-lockup.svg" alt="Areyos" width="87" height="26"></a><span>Book a demo</span></div>
+        <div class="cardhead"><a href="https://areyos.in" aria-label="Areyos home"><picture><source srcset="/signup/assets/areyos-logo.svg" media="(prefers-reduced-motion: reduce)"><img src="/signup/assets/areyos-logo-animated.svg" alt="Areyos" width="87" height="26"></picture></a></div>
         <h1>Book a demo</h1>
-        <p class="sub">Tell us about your venue. It takes under 2 minutes.</p>
+        <p class="sub">Two quick steps. Under a minute.</p>
 
-        <div class="steps" aria-hidden="true">
-          <div class="dot on" id="d1">1</div><div class="line"><i id="l1"></i></div>
-          <div class="dot" id="d2">2</div><div class="line"><i id="l2"></i></div>
-          <div class="dot" id="d3">3</div>
-        </div>
-        <div id="stepLabel">Step 1 of 3 &middot; Your venue</div>
+        <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+        <div id="stepLabel">Step 1 of 2</div>
 
         <form id="f" novalidate autocomplete="on">
           <div class="hp"><label>Leave blank<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -210,17 +201,20 @@ button svg{width:13px;height:12px}
             <input id="venue_name" name="venue_name" required placeholder="e.g. Holy Spirit Hospital">
             <div class="errmsg">Please enter your venue name.</div>
 
-            <label for="venue_type">Venue type</label>
-            <select id="venue_type" name="venue_type" required>
-              <option value="">Select one</option>
-              <option>Hospital</option><option>Mall</option><option>College / University</option>
-              <option>Office</option><option>Event / Exhibition</option><option>Airport / Station</option><option>Other</option>
-            </select>
-            <div class="errmsg">Please choose a venue type.</div>
+            <label id="vt_lbl">What kind of venue?</label>
+            <div class="chips" role="radiogroup" aria-labelledby="vt_lbl" data-required="1">
+              <input type="radio" id="vt1" name="venue_type" value="Hospital"><label for="vt1">Hospital</label>
+              <input type="radio" id="vt2" name="venue_type" value="Mall"><label for="vt2">Mall</label>
+              <input type="radio" id="vt3" name="venue_type" value="College / University"><label for="vt3">College</label>
+              <input type="radio" id="vt4" name="venue_type" value="Office"><label for="vt4">Office</label>
+              <input type="radio" id="vt5" name="venue_type" value="Event / Exhibition"><label for="vt5">Event</label>
+              <input type="radio" id="vt6" name="venue_type" value="Other"><label for="vt6">Other</label>
+            </div>
+            <div class="errmsg">Please pick a venue type.</div>
 
-            <label for="city">City and area</label>
-            <input id="city" name="city" required placeholder="e.g. Andheri East, Mumbai">
-            <div class="errmsg">Please enter the city and area.</div>
+            <label for="city">City</label>
+            <input id="city" name="city" required placeholder="e.g. Mumbai" autocomplete="address-level2">
+            <div class="errmsg">Please enter your city.</div>
           </div>
 
           <!-- STEP 2 -->
@@ -229,67 +223,20 @@ button svg{width:13px;height:12px}
             <input id="contact_name" name="contact_name" required autocomplete="name">
             <div class="errmsg">Please enter your name.</div>
 
-            <label for="role">Your role</label>
-            <input id="role" name="role" required placeholder="e.g. Administrator, Marketing head">
-            <div class="errmsg">Please enter your role.</div>
-
             <label for="phone">Phone / WhatsApp</label>
             <input id="phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="+91 98XXXXXXXX">
             <div class="errmsg">Please enter a valid phone number.</div>
 
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required autocomplete="email">
-            <div class="errmsg">Please enter a valid email.</div>
-          </div>
+            <label for="email">Email <span class="opt">(optional)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com">
+            <div class="errmsg">That email doesn't look right.</div>
 
-          <!-- STEP 3 -->
-          <div class="step" data-step="3">
-            <label>How would you like the demo? <span class="opt">(optional)</span></label>
-            <div class="chips">
-              <input type="radio" id="df1" name="demo_format" value="Video call"><label for="df1">Video call</label>
-              <input type="radio" id="df2" name="demo_format" value="Phone / WhatsApp"><label for="df2">Phone / WhatsApp</label>
-              <input type="radio" id="df3" name="demo_format" value="In person"><label for="df3">In person</label>
-            </div>
-
-            <label>Best time to reach you <span class="opt">(optional)</span></label>
-            <div class="chips">
+            <label id="bt_lbl">Best time to reach you <span class="opt">(optional)</span></label>
+            <div class="chips" role="radiogroup" aria-labelledby="bt_lbl">
               <input type="radio" id="bt1" name="demo_time" value="Morning"><label for="bt1">Morning</label>
               <input type="radio" id="bt2" name="demo_time" value="Afternoon"><label for="bt2">Afternoon</label>
               <input type="radio" id="bt3" name="demo_time" value="Evening"><label for="bt3">Evening</label>
             </div>
-
-            <label>Number of floors <span class="opt">(optional)</span></label>
-            <div class="chips">
-              <input type="radio" id="fl1" name="floors" value="1"><label for="fl1">1</label>
-              <input type="radio" id="fl2" name="floors" value="2-3"><label for="fl2">2-3</label>
-              <input type="radio" id="fl3" name="floors" value="4-6"><label for="fl3">4-6</label>
-              <input type="radio" id="fl4" name="floors" value="7+"><label for="fl4">7+</label>
-            </div>
-
-            <label>Biggest problem today <span class="opt">(pick any)</span></label>
-            <div class="chips">
-              <input type="checkbox" id="p1" name="problems" value="Visitors get lost"><label for="p1">Visitors get lost</label>
-              <input type="checkbox" id="p2" name="problems" value="Too many 'where is X' questions"><label for="p2">Too many "where is X" questions</label>
-              <input type="checkbox" id="p3" name="problems" value="Emergency exit clarity"><label for="p3">Emergency exit clarity</label>
-              <input type="checkbox" id="p4" name="problems" value="Other"><label for="p4">Other</label>
-            </div>
-
-            <label>Do you have floor plans? <span class="opt">(optional)</span></label>
-            <div class="chips">
-              <input type="radio" id="fp1" name="floorplans" value="Yes, digital"><label for="fp1">Yes, digital</label>
-              <input type="radio" id="fp2" name="floorplans" value="Yes, printed"><label for="fp2">Yes, printed</label>
-              <input type="radio" id="fp3" name="floorplans" value="No"><label for="fp3">No</label>
-            </div>
-
-            <label>When would you like to start? <span class="opt">(optional)</span></label>
-            <div class="chips">
-              <input type="radio" id="t1" name="timeline" value="Within 1 month"><label for="t1">Within 1 month</label>
-              <input type="radio" id="t2" name="timeline" value="Within 3 months"><label for="t2">Within 3 months</label>
-              <input type="radio" id="t3" name="timeline" value="Just exploring"><label for="t3">Just exploring</label>
-            </div>
-
-            <label for="notes">Anything else? <span class="opt">(optional)</span></label>
-            <textarea id="notes" name="notes"></textarea>
           </div>
 
           <div class="fail" id="fail" role="alert">Something went wrong. Please try again, or email us at <a href="mailto:anas@areyos.in">anas@areyos.in</a>.</div>
@@ -321,31 +268,35 @@ button svg{width:13px;height:12px}
   // 1) Paste your Google Apps Script Web App URL here (see apps-script.gs)
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbydVD5mCmV-qoB_QVRL1n5OqEDoNnDbGRyECpFyuO2pGkNOUAeUzaYIBHSpDsvqyMHs/exec";
 
-  var TITLES = ['Your venue', 'Your contact details', 'A few quick questions'];
-  var step = 1, TOTAL = 3;
+  var step = 1, TOTAL = 2;
   var form = document.getElementById('f');
+  var card = document.querySelector('.card');
   var label = document.getElementById('stepLabel');
+  var barFill = document.getElementById('barFill');
   var nextBtn = document.getElementById('next');
   var nextTxt = document.getElementById('nextTxt');
   var backBtn = document.getElementById('back');
   var fail = document.getElementById('fail');
+
+  // Keep the visitor on the form: only scroll if the top of the card is out of view
+  function keepCardInView(){
+    var r = card.getBoundingClientRect();
+    if (r.top < 0 || r.top > window.innerHeight * 0.6) {
+      window.scrollTo({top: window.pageYOffset + r.top - 12, behavior: 'smooth'});
+    }
+  }
 
   function show(n){
     step = n;
     document.querySelectorAll('.step').forEach(function(s){
       s.classList.toggle('active', Number(s.dataset.step) === n);
     });
-    for (var i = 1; i <= TOTAL; i++){
-      var d = document.getElementById('d' + i);
-      d.className = 'dot' + (i < n ? ' ok' : i === n ? ' on' : '');
-      d.innerHTML = i < n ? '&#10003;' : i;
-      if (i < TOTAL) document.getElementById('l' + i).style.width = (i < n ? '100%' : '0');
-    }
-    label.textContent = 'Step ' + n + ' of ' + TOTAL + ' · ' + TITLES[n - 1];
+    barFill.style.width = (n / TOTAL * 100) + '%';
+    label.textContent = 'Step ' + n + ' of ' + TOTAL;
     backBtn.style.display = n > 1 ? 'inline-flex' : 'none';
     nextTxt.textContent = n === TOTAL ? 'Book my demo' : 'Next';
     fail.style.display = 'none';
-    window.scrollTo({top:0, behavior:'smooth'});
+    keepCardInView();
   }
 
   function validStep(n){
@@ -353,10 +304,24 @@ button svg{width:13px;height:12px}
     var box = document.querySelector('.step[data-step="'+n+'"]');
     box.querySelectorAll('[required]').forEach(function(el){
       var v = el.value.trim(), good = v.length > 0;
-      if (el.type === 'email') good = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
       if (el.type === 'tel') good = v.replace(/\D/g,'').length >= 10;
       el.classList.toggle('err', !good);
       var m = el.nextElementSibling;
+      if (m && m.classList.contains('errmsg')) m.style.display = good ? 'none' : 'block';
+      if (!good) ok = false;
+    });
+    // optional email: only check the format if something was typed
+    box.querySelectorAll('input[type="email"]').forEach(function(el){
+      var v = el.value.trim(), good = v === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      el.classList.toggle('err', !good);
+      var m = el.nextElementSibling;
+      if (m && m.classList.contains('errmsg')) m.style.display = good ? 'none' : 'block';
+      if (!good) ok = false;
+    });
+    // required chip groups (e.g. venue type)
+    box.querySelectorAll('.chips[data-required]').forEach(function(g){
+      var good = !!g.querySelector('input:checked');
+      var m = g.nextElementSibling;
       if (m && m.classList.contains('errmsg')) m.style.display = good ? 'none' : 'block';
       if (!good) ok = false;
     });
@@ -403,7 +368,7 @@ button svg{width:13px;height:12px}
   function done(){
     document.getElementById('formArea').style.display = 'none';
     document.getElementById('done').style.display = 'block';
-    window.scrollTo({top:0, behavior:'smooth'});
+    keepCardInView();
   }
 </script>
 </body>
